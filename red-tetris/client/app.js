@@ -113,6 +113,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     timderId = setInterval(moveDown, 1000)
 
+    /*
+    **  While we are moving down we need to be able to 
+    **  move to the sides so we must listen for keys that 
+    **  will enable us to move from side to side
+    */
+
+    function controlTetramino(e) {
+        //catering for when we move left
+        if (e.keyCode === 37 || e.keyCode === 65){
+            allowLeft()
+        }
+        //catering for when we move right
+        else if (e.keyCode === 39 || e.keyCode === 68){
+            allowRight()
+        }
+        //catering for when we move faster
+        else if (e.keyCode === 40 || e.keyCode === 83){
+            allowLeft()
+        }
+        //catering for when we rotate te block
+        else if (e.keyCode === 38 || e.keyCode === 87){
+            allowLeft()
+        }
+    }
+    document.addEventListener('keyup', controlTetramino)
+
     function moveDown() {
         removeDrawn()
         currentPosition += width 
@@ -153,9 +179,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isAtLeftEnd){
             currentPosition -= 1
         }
-
         if (current.some(index => squares[currentPosition + index].classList.contains('taken'))){
             currentPosition += 1
+        }
+        draw()
+    }
+
+       function allowRight () {
+        removeDrawn()
+        const isAtRigtEnd = current.some(index => (currentPosition + index) % width === width - 1)
+        if (!isAtRigtEnd){
+            currentPosition += 1
+        }
+        if (current.some(index => squares[currentPosition + index].classList.contains('taken'))){
+            currentPosition -= 1
         }
         draw()
     }
