@@ -76,7 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
     */
 
     let currentPosition = 4
-    let current = theTetraminoes[0][0]
+    let currentRotation = 0
+
+    let random = Math.floor(Math.random()*theTetraminoes.length)
+
+      console.log(random)
+      
+    let current = theTetraminoes[random][currentRotation]
 
     /*
     **    A function used to draw the first rotation 
@@ -89,6 +95,52 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    draw()
+    /*
+    **      A function used to remove the tertaminos from 
+    **      the screen once they are no longer needed
+    */
+
+    function removeDrawn() {
+        current.forEach(index => {
+            squares[currentPosition + index].classList.remove('tetramino')
+        })
+    }
+
+    /*
+    **  Now that we have tetraminos and are able to draw and remove
+    **  them from the screen lets start making them move 
+    */
+
+    timderId = setInterval(moveDown, 1000)
+
+    function moveDown() {
+        removeDrawn()
+        currentPosition += width 
+        draw()
+        stopBlocks()
+    }
+
+    /*
+    **   We need to cater for if a block hits the bottom.  We need to make sure that 
+    **    we know that it is the bottom and it will stop there.  So we do checks to see
+    **    what is below us the whole time
+    */
+
+    function stopBlocks() {
+        if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))){
+            current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+
+            /*
+            **  So now that we have made a block stop we need to make a new one start falling
+            **  from the top again
+            */
+
+           random = Math.floor(Math.random()*theTetraminoes.length)
+           current = theTetraminoes[random][currentRotation]
+           currentPosition = 4
+           draw()
+        }
+
+    }
 
 })
