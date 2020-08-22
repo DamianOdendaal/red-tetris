@@ -3,10 +3,14 @@ version: "3"
 services:
     #this will be for the front end of the site 
     client:
-        build: ./Src/Backend
+        image: client
+
+        container_name: tetris-client
+
+        build: ./Src/client
         #TODO: Change path here to the actual path(make path relative)
         volumes:
-            - /home/chat-box/Desktop/chats/Src:/data
+            - /home/damian/Desktop/red-tetris/Src:/data
         networks:
             - my_network
     #this here will be for the backend of the site
@@ -14,6 +18,10 @@ services:
         image : server
 
         container_name: tetris-server
+        
+        volumes:  - /home/damian/Desktop/red-tetris/Src:/data
+
+        build: ./Src/server
 
         networks:
             - my_network
