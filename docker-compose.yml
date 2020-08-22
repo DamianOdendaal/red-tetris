@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+    #this will be for the front end of the site 
+    client:
+        build: ./Src/Backend
+        #TODO: Change path here to the actual path(make path relative)
+        volumes:
+            - /home/chat-box/Desktop/chats/Src:/data
+        networks:
+            - my_network
+    #this here will be for the backend of the site
+    server:
+        image : server
+
+        container_name: tetris-server
+
+        networks:
+            - my_network
+
+
+networks:
+  my_network:
+    driver: bridge
