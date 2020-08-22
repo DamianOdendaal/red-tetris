@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
     }
 
-       function allowRight () {
+    function allowRight () {
         removeDrawn()
         const isAtRigtEnd = current.some(index => (currentPosition + index) % width === width - 1)
         if (!isAtRigtEnd){
