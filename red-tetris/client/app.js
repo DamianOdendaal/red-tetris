@@ -140,7 +140,26 @@ document.addEventListener('DOMContentLoaded', () => {
            currentPosition = 4
            draw()
         }
-
     }
+
+    /*
+    **  Now we set rules to make sure that the blocks do not 
+    **  leave the set boundries for the game
+    */
+
+    function allowLeft () {
+        removeDrawn()
+        const isAtLeftEnd = current.some(index => (currentPosition + index) % width === 0)
+        if (!isAtLeftEnd){
+            currentPosition -= 1
+        }
+
+        if (current.some(index => squares[currentPosition + index].classList.contains('taken'))){
+            currentPosition += 1
+        }
+        draw()
+    }
+
+
 
 })
