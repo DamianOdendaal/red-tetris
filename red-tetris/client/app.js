@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.querySelector('#start-button')
     const pauseButton = document.querySelector('#pause-button')
     let timderId
+    let score = 0 
 
    /*
    **   Array to make the L shape tetramino
@@ -282,6 +283,22 @@ document.addEventListener('DOMContentLoaded', () => {
     **      in doing this the users score needs to increase
     */
 
-    
+    function scoreManager() {
+        for (let ind = 0; ind < 199; ind++){
+            const row = [ind, ind+1, ind+2,ind+3, ind+4, ind+5, ind+6, ind+7, ind+8, ind+9]
+
+            if (row.every(index => squares[ind].classList.contains('taken'))){
+                score += 10
+                scoreDisplay.innerHTML = score
+                row.forEach(index => {
+                    squares[index].classList.remove('taken')
+                    squares[index].classList.remove('tetramino')
+                })
+                const removedBlocks = squares.splice(ind, width)
+                squares = removedBlocks.concat(squares)
+                squares.forEach(cell => grid.appendChild(cell))
+            }
+        }
+    }
     
 })
