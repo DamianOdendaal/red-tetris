@@ -275,5 +275,13 @@ document.addEventListener('DOMContentLoaded', () => {
             timderId = null
         }
     })
+
+    /*
+    **      Now we are going to cater for when the rows
+    **      get filled up by blocks so we can remove them
+    **      in doing this the users score needs to increase
+    */
+
+    
     
 })
