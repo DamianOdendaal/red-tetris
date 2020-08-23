@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextRandomIndex = 0
     const scoreDisplay = document.querySelector('#score')
     const startButton = document.querySelector('#start-button')
+    const pauseButton = document.querySelector('#pause-button')
+    let timderId
 
    /*
    **   Array to make the L shape tetramino
@@ -111,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     **  them from the screen lets start making them move 
     */
 
-    timderId = setInterval(moveDown, 1000)
+    // timderId = setInterval(moveDown, 1000)
 
     /*
     **  While we are moving down we need to be able to 
@@ -255,7 +257,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-    **  Functionallity to start and or pause the game
+    **  Functionallity to start and or pause the game makig use of set 
+    **  and clear inteval
     */
+
+    startButton.addEventListener('click', () => {
+        if (!timderId){
+            draw()
+            timderId = setInterval(moveDown, 1000)
+            nextRandomIndex = Math.floor(Math.random()*theTetraminoes.length)
+            drawShape()
+        }
+    })
+    pauseButton.addEventListener('click', () => {
+        if (timderId){
+            clearInterval(timderId)
+            timderId = null
+        }
+    })
     
 })
