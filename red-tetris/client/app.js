@@ -253,5 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySquares[displayIndex + index].classList.add('tetramino')
         })
     }
+
+    /*
+    **  Functionallity to start and or pause the game
+    */
     
 })
