@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 10
     let squares = Array.from(document.querySelectorAll('.grid div'))
     const grid = document.querySelector('.grid')
-
+    let nextRandomIndex = 0
     const scoreDisplay = document.querySelector('#score')
     const startButton = document.querySelector('#start-button')
 
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         //catering for when we rotate te block
         else if (e.keyCode === 38 || e.keyCode === 87){
-            allowLeft()
+            rotateTetramno()
         }
     }
     document.addEventListener('keyup', controlTetramino)
@@ -161,10 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
             **  from the top again
             */
 
-           random = Math.floor(Math.random()*theTetraminoes.length)
-           current = theTetraminoes[random][currentRotation]
-           currentPosition = 4
-           draw()
+            random = nextRandomIndex
+            random = Math.floor(Math.random()*theTetraminoes.length)
+            current = theTetraminoes[random][currentRotation]
+            currentPosition = 4
+            draw()
+            drawShape()
         }
     }
 
@@ -197,6 +199,59 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
     }
 
+    /*
+    **      Catering for when a user wants to rotate the 
+    **      tetramino as it is falling 
+    */
+
+    function rotateTetramno() {
+        removeDrawn()
+        currentRotation ++
+        // if it gets to the fourth rotation the next would need 
+        // to be the first rotation again
+        if (currentRotation === current.length){
+            currentRotation = 0
+        }
+        current = theTetraminoes[random][currentRotation]
+        draw()
+    }
 
 
+    /*
+    **  This is to cater for when a user sees the 
+    **  next tetramino that they are going to be getting
+    */
+
+    const displaySquares = document.querySelectorAll('.mini-grid div')
+    const displayWidth = 4
+    let displayIndex = 0
+   
+    const nextTetraminoes = [
+        // L tetramino
+        [1, displayWidth+1, displayWidth*2+1, 2],
+        // Z Tetromino
+        [0, displayWidth, displayWidth+1, displayWidth*2+1], 
+        // T Tetromino
+        [1, displayWidth, displayWidth+1, displayWidth+2],
+        // O Tetromino
+        [0, 1, displayWidth, displayWidth+1], 
+        // I Tetromino
+        [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1] 
+
+        // all tetrominos are in their first rotation
+    ]
+
+    /*
+    **  draw the shape in the side grid now
+    */
+
+    function drawShape() {
+        displaySquares.forEach(square => {
+            square.classList.remove('tetramino')
+        })
+        nextTetraminoes[nextRandomIndex].forEach(index => {
+            displaySquares[displayIndex + index].classList.add('tetramino')
+        })
+    }
+    
 })
