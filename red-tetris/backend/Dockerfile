@@ -8,6 +8,8 @@ COPY . /data
 
 RUN pip3 install -r /data/requirements.txt
 
+RUN  python3 manage.py migrate
+
 VOLUME [ "/data" ]
 
 WORKDIR /data/
