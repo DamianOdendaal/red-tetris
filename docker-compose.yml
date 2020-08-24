@@ -1,11 +1,24 @@
-version: "3"
-
-services:     
-  dj:
-    container_name: dj
-    build: django
-    command: python manage.py runserver 0.0.0.0:80
+version: "3.2"
+services:
+  backend:
+    build: ./backend
     volumes:
-      - ./django:/code
+      - ./backend:/app/backend
     ports:
-      - "80:80"
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    command: python3 manage.py runserver 0.0.0.0:8000
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+      # One-way volume to use node_modules from inside image
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    command: npm start
