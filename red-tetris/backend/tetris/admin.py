@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import TetrisPlayer
+from .models import TetrisGameModes
 
-# Register your models here.
+
+admin.site.register(TetrisPlayer)
+admin.site.register(TetrisGameModes)
