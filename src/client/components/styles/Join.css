@@ -18,7 +18,7 @@ html, body {
     text-align: center;
     height: 100vh;
     align-items: center;
-    background: url('../../img/horse_head.jpg') #000;
+    background: url('https://source.unsplash.com/random') #000;
     background-size: cover;
     overflow: hidden;
   }

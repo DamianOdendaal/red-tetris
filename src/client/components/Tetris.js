@@ -55,11 +55,12 @@ const Tetris = (props) => {
         let newUsers = users.filter((user) => user.room === room && user.board !== null );
         game.users = newUsers;
         game.usersLeft = newUsers;
-        setTimeout(() => {
+        let gameChecker = setTimeout(() => {
           if(game.users[0] && game.users[0].id === socket.id){
             setHost(true);
           }
         }, 1000);
+        clearTimeout(gameChecker)
       }
     } else {
       game.users = users;
